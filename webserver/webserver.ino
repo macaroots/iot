@@ -117,6 +117,8 @@ String getPage() {
 }
 
 void handle_index() {
+  Serial.println("parametro: " + server.arg("parametro"));
+  server.sendHeader("Access-Control-Allow-Origin", "*");
   server.send(200, "text/html", getPage());
 }
 
@@ -128,18 +130,18 @@ void mudar_luz(float estado) {
 void handle_ligar() {
   automatico = false;
   mudar_luz(255);
-  server.send(200, "text/html", getPage());
+  handle_index();
 }
 
 void handle_desligar() {
   automatico = false;
   mudar_luz(LOW);
-  server.send(200, "text/html", getPage());
+  handle_index();
 }
 
 void handle_automatico() {
   automatico = true;
-  server.send(200, "text/html", getPage());
+  handle_index();
 }
 
 void handle_not_found() {
